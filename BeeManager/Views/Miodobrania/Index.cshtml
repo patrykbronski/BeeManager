@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BeeManager.Models.Miodobranie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (ViewBag.UlId != null)
+{
+    <p>
+        <a asp-controller="Ule" asp-action="Index">← Powrót do uli</a>
+    </p>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pasieka</th>
+            <th>Ul</th>
+            <th>Data miodobrania</th>
+            <th>Typ miodu</th>
+            <th>Ilość (kg)</th>
+            <th>Notatki</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(item.Ul?.Pasieka?.Nazwa ?? "-")</td>
+                <td>@(item.Ul?.NumerUla ?? "-")</td>
+                <td>@Html.DisplayFor(modelItem => item.DataMiodobrania)</td>
+                <td>@Html.DisplayFor(modelItem => item.TypMiodu)</td>
+                <td>@Html.DisplayFor(modelItem => item.IloscKg)</td>
+                <td>@Html.DisplayFor(modelItem => item.Notatki)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,57 @@
+﻿@model BeeManager.Models.Przeglad
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Przeglad</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ul)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ul.NumerUla)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataPrzegladu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataPrzegladu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StanRodziny)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StanRodziny)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ObecnoscMatki)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ObecnoscMatki)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IloscCzerwiu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IloscCzerwiu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Notatki)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notatki)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

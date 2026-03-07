@@ -1,0 +1,65 @@
+﻿@model BeeManager.Models.Ul
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Ul</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PasiekaId" class="control-label"></label>
+                <select asp-for="PasiekaId" class ="form-control" asp-items="ViewBag.PasiekaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumerUla" class="control-label"></label>
+                <input asp-for="NumerUla" class="form-control" />
+                <span asp-validation-for="NumerUla" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypUla" class="control-label"></label>
+                <select asp-for="TypUla" class="form-control"
+                        asp-items="Html.GetEnumSelectList<BeeManager.Models.TypUlaEnum>()">
+                    <option value="">-- wybierz --</option>
+                </select>
+                <span asp-validation-for="TypUla" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control"
+                        asp-items="Html.GetEnumSelectList<BeeManager.Models.StatusUlaEnum>()">
+                    <option value="">-- wybierz --</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DataZalozenia" class="control-label"></label>
+                <input asp-for="DataZalozenia" class="form-control" />
+                <span asp-validation-for="DataZalozenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uwagi" class="control-label"></label>
+                <input asp-for="Uwagi" class="form-control" />
+                <span asp-validation-for="Uwagi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
