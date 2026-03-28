@@ -1,0 +1,116 @@
+
+.header {
+  background: #e3be4f;
+  padding: 0 40px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+
+.nav-right {
+  display: flex;
+  gap: 40px;
+}
+
+
+.nav-right a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.nav-right a:hover {
+  opacity: 0.3;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff8e7;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.navbar {
+    background: #f7c948;
+    padding: 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 0;
+}
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+.buttons {
+    margin-top: 30px;
+}
+
+button {
+    padding: 12px 24px;
+    margin: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.primary {
+    background: #f0b429;
+}
+
+.secondary {
+    background: #5c3d2e;
+    color: white;
+}
+
+.features {
+    background: white;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #fff8e7;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+}

@@ -12,6 +12,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -30,6 +40,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.MapGet("/", () => Results.Redirect("http://localhost:5173"));
+app.UseCors("ReactFrontend");
 
 app.UseRouting();
 
@@ -43,4 +55,3 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
-
