@@ -1,45 +1,37 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace BeeManager.Models
+namespace BeeManager.Models;
+
+public class Przeglad
 {
-    public enum StanRodzinyEnum
-    {
-        BardzoSlaby = 1,
-        Slaby = 2,
-        Sredni = 3,
-        Dobry = 4,
-        BardzoDobry = 5
-    }
+    public int Id { get; set; }
 
-    public class Przeglad
-    {
-        public int Id { get; set; }
+    [Required]
+    public int UlId { get; set; }
 
-        [Required]
-        [Display(Name = "Ul")]
-        public int UlId { get; set; }
+    public Ul? Ul { get; set; }
 
-        public Ul? Ul { get; set; }
+    [Required]
+    public DateTime DataPrzegladu { get; set; } = DateTime.UtcNow.Date;
 
-        [Required]
-        [DataType(DataType.Date)]
-        [Display(Name = "Data przeglądu")]
-        public DateTime DataPrzegladu { get; set; } = DateTime.Today;
+    [Required]
+    public StanRodzinyEnum StanRodziny { get; set; }
 
-        [Required]
-        [Display(Name = "Stan rodziny")]
-        public StanRodzinyEnum StanRodziny { get; set; }
+    [Required]
+    public bool ObecnoscMatki { get; set; }
 
-        [Required]
-        [Display(Name = "Obecność matki")]
-        public bool ObecnoscMatki { get; set; }
+    [Range(0, 50)]
+    public int IloscCzerwiu { get; set; }
 
-        [Range(0, 50)]
-        [Display(Name = "Ilość czerwiu (ramek)")]
-        public int IloscCzerwiu { get; set; }
+    [StringLength(2000)]
+    public string? Notatki { get; set; }
 
-        [StringLength(1000)]
-        [Display(Name = "Notatki")]
-        public string? Notatki { get; set; }
-    }
+    [Required]
+    public string CreatedByUserId { get; set; } = string.Empty;
+
+    public ApplicationUser? CreatedByUser { get; set; }
+
+    public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+
+    public DateTime? UpdatedAtUtc { get; set; }
 }

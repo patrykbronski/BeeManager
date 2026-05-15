@@ -1,0 +1,281 @@
+.backend-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.backend-hero {
+  background: linear-gradient(135deg, #2b2117 0%, #5f412d 100%);
+  color: #fff8ea;
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+.backend-hero h2,
+.backend-hero p {
+  margin: 0;
+}
+
+.backend-hero p {
+  margin-top: 10px;
+  max-width: 900px;
+  line-height: 1.6;
+  color: rgba(255, 248, 234, 0.92);
+}
+
+.backend-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.backend-btn,
+.backend-link,
+.backend-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 0;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.backend-btn {
+  background: #e0b63f;
+  color: #2b2117;
+}
+
+.backend-danger {
+  background: #b93a32;
+  color: #fff8ea;
+}
+
+.backend-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff8ea;
+}
+
+.backend-link {
+  background: #f5ede0;
+  color: #2b2117;
+}
+
+.backend-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.backend-grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.backend-grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.backend-grid.cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.backend-card,
+.backend-section {
+  background: rgba(255, 251, 244, 0.96);
+  border: 1px solid rgba(43, 33, 23, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.backend-card {
+  padding: 20px;
+}
+
+.backend-section {
+  padding: 24px;
+}
+
+.backend-section + .backend-section,
+.backend-card + .backend-card {
+  margin-top: 18px;
+}
+
+.backend-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.backend-section-header h3,
+.backend-section-header h4 {
+  margin: 0;
+}
+
+.backend-muted {
+  color: #6d5c4e;
+  margin: 6px 0 0;
+  line-height: 1.6;
+}
+
+.backend-form {
+  display: grid;
+  gap: 14px;
+}
+
+.backend-form.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.backend-field {
+  display: grid;
+  gap: 8px;
+}
+
+.backend-field label {
+  font-weight: 700;
+  color: #2b2117;
+}
+
+.backend-field input,
+.backend-field textarea,
+.backend-field select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #d4c4af;
+  background: #fff;
+  color: #2b2117;
+  padding: 12px 14px;
+  font: inherit;
+}
+
+.backend-field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.backend-field input:focus,
+.backend-field textarea:focus,
+.backend-field select:focus {
+  outline: 2px solid rgba(224, 182, 63, 0.45);
+  border-color: #e0b63f;
+}
+
+.backend-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.backend-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.backend-table th,
+.backend-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(43, 33, 23, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+.backend-table th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6d5c4e;
+}
+
+.backend-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.backend-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f0e3c3;
+  color: #5a431d;
+}
+
+.backend-pill.success {
+  background: #d8ead8;
+  color: #275e2d;
+}
+
+.backend-pill.warn {
+  background: #f5e0b8;
+  color: #7b5311;
+}
+
+.backend-pill.danger {
+  background: #f0d1d1;
+  color: #8c2323;
+}
+
+.backend-empty {
+  padding: 20px;
+  border-radius: 18px;
+  background: #f8f1e2;
+  color: #5d4b3f;
+}
+
+.backend-section-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.backend-tab {
+  border: 1px solid #d8c6ab;
+  background: #fff9ef;
+  color: #2b2117;
+}
+
+.backend-tab.active {
+  background: #e0b63f;
+  border-color: #e0b63f;
+}
+
+.backend-divider {
+  height: 1px;
+  background: rgba(43, 33, 23, 0.1);
+  margin: 20px 0;
+}
+
+.backend-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.backend-kpi {
+  display: grid;
+  gap: 6px;
+}
+
+.backend-kpi strong {
+  font-size: 28px;
+}
+
+@media (max-width: 900px) {
+  .backend-grid.cols-2,
+  .backend-grid.cols-3,
+  .backend-grid.cols-4,
+  .backend-form.grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

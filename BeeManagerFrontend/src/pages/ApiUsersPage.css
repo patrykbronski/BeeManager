@@ -1,0 +1,61 @@
+.api-page {
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(180deg, #f3efe6 0%, #e9dfc6 100%);
+  padding: 40px 20px;
+}
+
+.api-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.api-container h2 {
+  margin-top: 0;
+  font-size: 36px;
+}
+
+.api-info {
+  font-size: 18px;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.api-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.api-card,
+.api-message {
+  background: #fffaf0;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+.api-card h3,
+.api-message h3 {
+  margin-top: 0;
+}
+
+.api-message.error {
+  border: 2px solid #c0392b;
+}
+
+body.dark .api-page {
+  background: #181512;
+}
+
+body.dark .api-card,
+body.dark .api-message {
+  background: #241f1a;
+  color: #f1e9dc;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 800px) {
+  .api-grid {
+    grid-template-columns: 1fr;
+  }
+}

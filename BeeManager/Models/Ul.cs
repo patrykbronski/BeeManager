@@ -1,51 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace BeeManager.Models
+namespace BeeManager.Models;
+
+public class Ul
 {
-    public enum TypUlaEnum
-    {
-        Wielkopolski = 1,
-        Dadant = 2,
-        Warszawski = 3
-    }
+    public int Id { get; set; }
 
-    public enum StatusUlaEnum
-    {
-        Aktywny = 1,
-        Pusty = 2,
-        Zniszczony = 3
-    }
+    [Required]
+    public int PasiekaId { get; set; }
 
-    public class Ul
-    {
-        public int Id { get; set; }
+    public Pasieka? Pasieka { get; set; }
 
-        [Required]
-        [Display(Name = "Pasieka")]
-        public int PasiekaId { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string NumerUla { get; set; } = string.Empty;
 
-        public Pasieka? Pasieka { get; set; }
+    public TypUlaEnum? TypUla { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Numer ula")]
-        public string NumerUla { get; set; } = "";
+    public StatusUlaEnum? Status { get; set; }
 
+    public DateTime? DataZalozenia { get; set; }
 
-        [Display(Name = "Typ ula")]
-        public TypUlaEnum? TypUla { get; set; }
+    [StringLength(1000)]
+    public string? Uwagi { get; set; }
 
-        [Display(Name = "Status")]
-        public StatusUlaEnum? Status { get; set; }
+    public ICollection<Przeglad> Przeglady { get; set; } = new List<Przeglad>();
 
-
-
-
-
-
-        [Display(Name = "Data założenia")]
-        public DateTime? DataZalozenia { get; set; }
-
-        public string? Uwagi { get; set; }
-    }
+    public ICollection<Miodobranie> Miodobrania { get; set; } = new List<Miodobranie>();
 }

@@ -1,0 +1,96 @@
+.backend-shell input[style],
+.backend-shell form input[style] {
+  padding: 0 14px;
+  min-height: 42px;
+  border-radius: 12px;
+  border: 1px solid #d4c4af;
+}
+
+.discover-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.discover-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.discover-card-main {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.discover-card-topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.discover-card-topline h4 {
+  margin: 0;
+}
+
+.discover-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #6d5c4e;
+  line-height: 1.5;
+}
+
+.discover-card-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.discover-message-field {
+  min-width: min(100%, 340px);
+}
+
+.discover-card-buttons {
+  justify-content: flex-end;
+}
+
+.discover-card-note {
+  margin: 0;
+  max-width: 280px;
+  text-align: right;
+}
+
+@media (max-width: 800px) {
+  .discover-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .discover-card-actions {
+    align-items: stretch;
+  }
+
+  .discover-card-buttons {
+    justify-content: flex-start;
+  }
+
+  .discover-card-note {
+    max-width: none;
+    text-align: left;
+  }
+
+  .discover-message-field {
+    min-width: 0;
+  }
+
+  .discover-card-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
