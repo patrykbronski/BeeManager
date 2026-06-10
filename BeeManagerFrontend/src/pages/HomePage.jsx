@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import * as Sentry from "@sentry/react";
 import Navbar from "../components/Navbar";
 import "./HomePage.css";
 import { useAppContext } from "../context/AppContext";
@@ -52,6 +53,18 @@ function HomePage() {
               }}
             >
               Dowiedz się więcej
+            </button>
+
+            <button
+              type="button"
+              className="hero-btn hero-btn-secondary"
+              onClick={() => {
+                const error = new Error("Test Error - BeeManager Sentry Demo");
+                Sentry.captureException(error);
+                alert("Błąd został wysłany do Sentry! Sprawdź dashboard.");
+              }}
+            >
+              Test Error
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -148,7 +149,10 @@ export function AppProvider({ children }) {
   const isAuthenticated = Boolean(accessToken && currentUser);
   const isAdmin = currentUser?.roles?.includes("Admin") || false;
 
-  const hasRole = (role) => currentUser?.roles?.includes(role) || false;
+  const hasRole = useCallback(
+    (role) => currentUser?.roles?.includes(role) || false,
+    [currentUser]
+  );
 
   const value = useMemo(
     () => ({

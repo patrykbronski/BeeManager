@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -10,8 +11,15 @@ import ApiUsersPage from "./pages/ApiUsersPage";
 import ApiariesPage from "./pages/ApiariesPage";
 import ApiaryDetailsPage from "./pages/ApiaryDetailsPage";
 import AdminPage from "./pages/AdminPage";
+import { trackPageView } from "./analytics";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location]);
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

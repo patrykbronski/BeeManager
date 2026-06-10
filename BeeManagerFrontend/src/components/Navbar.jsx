@@ -20,13 +20,13 @@ function Navbar() {
   return (
     <header className="header">
       <div className="header-inner">
-        <div className="logo">
+        <Link to="/" className="logo">
           <span className="logo-icon">🐝</span>
           <h1>BeeManager</h1>
-        </div>
+        </Link>
 
         <nav className="nav-right">
-          <Link to="/">Dashboard</Link>
+          
           <Link to="/pasieki">Pasieki</Link>
           {isAdmin && <Link to="/panel-admina">Admin</Link>}
           <Link to="/produkty">Produkty</Link>
@@ -45,7 +45,7 @@ function Navbar() {
             className="nav-link-btn"
             onClick={() => goToSection("about")}
           >
-            O aplikacji
+           
           </button>
 
           <Link to="/koszyk" className="cart-link">

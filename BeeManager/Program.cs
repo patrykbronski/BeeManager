@@ -141,6 +141,7 @@ static async Task SeedIdentityAsync(IServiceProvider services)
     using var scope = services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await dbContext.Database.MigrateAsync();
+    await EnsureIdentityUserSchemaAsync(dbContext);
 
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -183,4 +184,42 @@ static async Task SeedIdentityAsync(IServiceProvider services)
 
         await userManager.AddToRoleAsync(admin, SystemRoles.Admin);
     }
+}
+
+static async Task EnsureIdentityUserSchemaAsync(ApplicationDbContext dbContext)
+{
+    // Some local databases can lag behind the current model even when EF thinks migrations are applied.
+    // Add any missing AspNetUsers columns so Identity can query the table during startup.
+    var sql = @"
+IF COL_LENGTH('AspNetUsers', 'FullName') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [FullName] nvarchar(150) NOT NULL CONSTRAINT [DF_AspNetUsers_FullName] DEFAULT('');
+
+IF COL_LENGTH('AspNetUsers', 'RequestedRole') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RequestedRole] int NOT NULL CONSTRAINT [DF_AspNetUsers_RequestedRole] DEFAULT(1);
+
+IF COL_LENGTH('AspNetUsers', 'AccountStatus') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [AccountStatus] int NOT NULL CONSTRAINT [DF_AspNetUsers_AccountStatus] DEFAULT(1);
+
+IF COL_LENGTH('AspNetUsers', 'RegistrationNote') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RegistrationNote] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'ReviewNote') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ReviewNote] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'RejectionReason') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RejectionReason] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'CreatedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [CreatedAtUtc] datetime2 NOT NULL CONSTRAINT [DF_AspNetUsers_CreatedAtUtc] DEFAULT SYSUTCDATETIME();
+
+IF COL_LENGTH('AspNetUsers', 'ApprovedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ApprovedAtUtc] datetime2 NULL;
+
+IF COL_LENGTH('AspNetUsers', 'RejectedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RejectedAtUtc] datetime2 NULL;
+
+IF COL_LENGTH('AspNetUsers', 'ReviewedByUserId') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ReviewedByUserId] nvarchar(450) NULL;
+";
+    await dbContext.Database.ExecuteSqlRawAsync(sql);
 }

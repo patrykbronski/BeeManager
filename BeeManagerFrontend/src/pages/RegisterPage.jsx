@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import "./Auth.css";
 import { beeApi } from "../api/beeApi";
 import { requestedRoleOptions } from "../utils/beeEnums";
+import { trackEvent } from "../analytics";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function RegisterPage() {
         requestedRole: data.requestedRole,
         registrationNote: data.registrationNote || "",
       });
+      trackEvent("sign_up", { method: "email" });
       navigate("/login");
     } catch (requestError) {
       setRegisterError(

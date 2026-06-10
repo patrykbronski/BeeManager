@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Products.css";
 import { useAppContext } from "../context/AppContext";
+import { trackEvent } from "../analytics";
 
 const products = [
   { id: 1, name: "Miód wielokwiatowy", price: "35 zł" },
@@ -42,7 +43,10 @@ function ProductsPage() {
                   <button
                     type="button"
                     className="product-link secondary-btn"
-                    onClick={() => addToCart(product)}
+                    onClick={() => {
+                      addToCart(product);
+                      trackEvent("add_to_cart", { item_name: product.name, value: product.price });
+                    }}
                   >
                     Dodaj do koszyka
                   </button>

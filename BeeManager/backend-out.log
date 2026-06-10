@@ -1,0 +1,298 @@
+Używanie ustawień uruchamiania z profilu Properties\launchSettings.json...
+Trwa kompilowanie...
+C:\Program Files\dotnet\sdk\9.0.313\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.EolTargetFrameworks.targets(32,5): warning NETSDK1138: platforma docelowa „net6.0” nie jest już obsługiwana i w przyszłości nie będzie otrzymywać aktualizacji zabezpieczeń. Aby uzyskać więcej informacji na temat zasad pomocy technicznej, zobacz https://aka.ms/dotnet-core-support. [C:\Users\Katow\source\repos\BeeManager\BeeManager\BeeManager.csproj]
+C:\Program Files\dotnet\sdk\9.0.313\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.EolTargetFrameworks.targets(32,5): warning NETSDK1138: platforma docelowa „net6.0” nie jest już obsługiwana i w przyszłości nie będzie otrzymywać aktualizacji zabezpieczeń. Aby uzyskać więcej informacji na temat zasad pomocy technicznej, zobacz https://aka.ms/dotnet-core-support. [C:\Users\Katow\source\repos\BeeManager\BeeManager\BeeManager.csproj]
+C:\Program Files\dotnet\sdk\9.0.313\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.EolTargetFrameworks.targets(32,5): warning NETSDK1138: platforma docelowa „net6.0” nie jest już obsługiwana i w przyszłości nie będzie otrzymywać aktualizacji zabezpieczeń. Aby uzyskać więcej informacji na temat zasad pomocy technicznej, zobacz https://aka.ms/dotnet-core-support. [C:\Users\Katow\source\repos\BeeManager\BeeManager\BeeManager.csproj]
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [MigrationId], [ProductVersion]
+      FROM [__EFMigrationsHistory]
+      ORDER BY [MigrationId];
+info: Microsoft.EntityFrameworkCore.Migrations[20405]
+      No migrations were applied. The database is already up to date.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+IF COL_LENGTH('AspNetUsers', 'FullName') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [FullName] nvarchar(150) NOT NULL CONSTRAINT [DF_AspNetUsers_FullName] DEFAULT('');
+
+IF COL_LENGTH('AspNetUsers', 'RequestedRole') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RequestedRole] int NOT NULL CONSTRAINT [DF_AspNetUsers_RequestedRole] DEFAULT(1);
+
+IF COL_LENGTH('AspNetUsers', 'AccountStatus') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [AccountStatus] int NOT NULL CONSTRAINT [DF_AspNetUsers_AccountStatus] DEFAULT(1);
+
+IF COL_LENGTH('AspNetUsers', 'RegistrationNote') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RegistrationNote] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'ReviewNote') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ReviewNote] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'RejectionReason') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RejectionReason] nvarchar(500) NULL;
+
+IF COL_LENGTH('AspNetUsers', 'CreatedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [CreatedAtUtc] datetime2 NOT NULL CONSTRAINT [DF_AspNetUsers_CreatedAtUtc] DEFAULT SYSUTCDATETIME();
+
+IF COL_LENGTH('AspNetUsers', 'ApprovedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ApprovedAtUtc] datetime2 NULL;
+
+IF COL_LENGTH('AspNetUsers', 'RejectedAtUtc') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [RejectedAtUtc] datetime2 NULL;
+
+IF COL_LENGTH('AspNetUsers', 'ReviewedByUserId') IS NULL
+    ALTER TABLE [AspNetUsers] ADD [ReviewedByUserId] nvarchar(450) NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (21ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: https://localhost:7233
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5199
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\Katow\source\repos\BeeManager\BeeManager\
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__normalizedLogin_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      WHERE (([a].[Email] IS NOT NULL) AND ([a].[Email] = @__normalizedLogin_0)) OR ([a].[UserName] = @__normalizedLogin_0)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: BeeManager.Controllers.AuthController[0]
+      Udane logowanie użytkownika admin@beemanager.local
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (Size = 200), @p3='?' (DbType = DateTime2), @p4='?' (Size = 200), @p5='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SET NOCOUNT ON;
+      INSERT INTO [RefreshTokens] ([CreatedAtUtc], [ExpiresAtUtc], [ReplacedByToken], [RevokedAtUtc], [TokenHash], [UserId])
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+      SELECT [Id]
+      FROM [RefreshTokens]
+      WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__CurrentUserId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[Id] = @__CurrentUserId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      ORDER BY [a].[FullName]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__status_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id] AS [UserId], [a].[FullName], COALESCE([a].[Email], N'') AS [Email], [a].[RequestedRole], [a].[AccountStatus], [a].[RegistrationNote], [a].[ReviewNote], [a].[CreatedAtUtc], [a].[RejectionReason]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[AccountStatus] = @__status_Value_0
+      ORDER BY [a].[CreatedAtUtc] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      ORDER BY [a].[FullName]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__status_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id] AS [UserId], [a].[FullName], COALESCE([a].[Email], N'') AS [Email], [a].[RequestedRole], [a].[AccountStatus], [a].[RegistrationNote], [a].[ReviewNote], [a].[CreatedAtUtc], [a].[RejectionReason]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[AccountStatus] = @__status_Value_0
+      ORDER BY [a].[CreatedAtUtc] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[DecisionNote], [a].[MembershipRole], [a].[PasiekaId], [a].[RequestMessage], [a].[RequestedAtUtc], [a].[ReviewedAtUtc], [a].[ReviewedByUserId], [a].[Status], [a].[UserId], [p].[Id], [p].[Lokalizacja], [p].[Nazwa], [p].[Opis], [p].[OwnerId], [p].[UtworzonoAtUtc], [a0].[Id], [a0].[AccessFailedCount], [a0].[AccountStatus], [a0].[ApprovedAtUtc], [a0].[ConcurrencyStamp], [a0].[CreatedAtUtc], [a0].[Email], [a0].[EmailConfirmed], [a0].[FullName], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[RegistrationNote], [a0].[RejectedAtUtc], [a0].[RejectionReason], [a0].[RequestedRole], [a0].[ReviewNote], [a0].[ReviewedByUserId], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName]
+      FROM [ApiaryMemberships] AS [a]
+      INNER JOIN [Pasieki] AS [p] ON [a].[PasiekaId] = [p].[Id]
+      INNER JOIN [AspNetUsers] AS [a0] ON [a].[UserId] = [a0].[Id]
+      ORDER BY [a].[RequestedAtUtc] DESC
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[DecisionNote], [a].[MembershipRole], [a].[PasiekaId], [a].[RequestMessage], [a].[RequestedAtUtc], [a].[ReviewedAtUtc], [a].[ReviewedByUserId], [a].[Status], [a].[UserId], [p].[Id], [p].[Lokalizacja], [p].[Nazwa], [p].[Opis], [p].[OwnerId], [p].[UtworzonoAtUtc], [a0].[Id], [a0].[AccessFailedCount], [a0].[AccountStatus], [a0].[ApprovedAtUtc], [a0].[ConcurrencyStamp], [a0].[CreatedAtUtc], [a0].[Email], [a0].[EmailConfirmed], [a0].[FullName], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[RegistrationNote], [a0].[RejectedAtUtc], [a0].[RejectionReason], [a0].[RequestedRole], [a0].[ReviewNote], [a0].[ReviewedByUserId], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName]
+      FROM [ApiaryMemberships] AS [a]
+      INNER JOIN [Pasieki] AS [p] ON [a].[PasiekaId] = [p].[Id]
+      INNER JOIN [AspNetUsers] AS [a0] ON [a].[UserId] = [a0].[Id]
+      ORDER BY [a].[RequestedAtUtc] DESC
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__membershipId_0='?' (DbType = Int32), @__id_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[DecisionNote], [a].[MembershipRole], [a].[PasiekaId], [a].[RequestMessage], [a].[RequestedAtUtc], [a].[ReviewedAtUtc], [a].[ReviewedByUserId], [a].[Status], [a].[UserId]
+      FROM [ApiaryMemberships] AS [a]
+      WHERE ([a].[Id] = @__membershipId_0) AND ([a].[PasiekaId] = @__id_1)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@p4='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (DbType = DateTime2), @p2='?' (Size = 450), @p3='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SET NOCOUNT ON;
+      UPDATE [ApiaryMemberships] SET [DecisionNote] = @p0, [ReviewedAtUtc] = @p1, [ReviewedByUserId] = @p2, [Status] = @p3
+      WHERE [Id] = @p4;
+      SELECT @@ROWCOUNT;
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.36 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__status_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id] AS [UserId], [a].[FullName], COALESCE([a].[Email], N'') AS [Email], [a].[RequestedRole], [a].[AccountStatus], [a].[RegistrationNote], [a].[ReviewNote], [a].[CreatedAtUtc], [a].[RejectionReason]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[AccountStatus] = @__status_Value_0
+      ORDER BY [a].[CreatedAtUtc] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[ApprovedAtUtc], [a].[ConcurrencyStamp], [a].[CreatedAtUtc], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[RegistrationNote], [a].[RejectedAtUtc], [a].[RejectionReason], [a].[RequestedRole], [a].[ReviewNote], [a].[ReviewedByUserId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+      FROM [AspNetUsers] AS [a]
+      ORDER BY [a].[FullName]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[DecisionNote], [a].[MembershipRole], [a].[PasiekaId], [a].[RequestMessage], [a].[RequestedAtUtc], [a].[ReviewedAtUtc], [a].[ReviewedByUserId], [a].[Status], [a].[UserId], [p].[Id], [p].[Lokalizacja], [p].[Nazwa], [p].[Opis], [p].[OwnerId], [p].[UtworzonoAtUtc], [a0].[Id], [a0].[AccessFailedCount], [a0].[AccountStatus], [a0].[ApprovedAtUtc], [a0].[ConcurrencyStamp], [a0].[CreatedAtUtc], [a0].[Email], [a0].[EmailConfirmed], [a0].[FullName], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[RegistrationNote], [a0].[RejectedAtUtc], [a0].[RejectionReason], [a0].[RequestedRole], [a0].[ReviewNote], [a0].[ReviewedByUserId], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName]
+      FROM [ApiaryMemberships] AS [a]
+      INNER JOIN [Pasieki] AS [p] ON [a].[PasiekaId] = [p].[Id]
+      INNER JOIN [AspNetUsers] AS [a0] ON [a].[UserId] = [a0].[Id]
+      ORDER BY [a].[RequestedAtUtc] DESC

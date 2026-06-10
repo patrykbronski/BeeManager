@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { beeApi } from "../api/beeApi";
@@ -82,7 +82,7 @@ function ApiaryDetailsPage() {
   const canEditNotes = apiary?.canManage || hasRole("Worker") || false;
   const canReviewMemberships = canManageApiary;
 
-  async function loadAll() {
+  const loadAll = useCallback(async () => {
     const apiaryResponse = await beeApi.get(`/apiaries/${apiaryId}`);
     const [hivesResponse, harvestsResponse, inspectionsResponse] = await Promise.all([
       beeApi.get("/hives", { params: { apiaryId } }),
@@ -104,7 +104,7 @@ function ApiaryDetailsPage() {
     setInspections(inspectionsResponse.data);
     setMemberships(membershipsResponse.data);
     setHiveForm((prev) => ({ ...prev, pasiekaId: String(apiaryId) }));
-  }
+  }, [apiaryId]);
 
   useEffect(() => {
     let alive = true;
@@ -143,7 +143,7 @@ function ApiaryDetailsPage() {
     return () => {
       alive = false;
     };
-  }, [apiaryId, authLoading, isAuthenticated]);
+  }, [apiaryId, authLoading, isAuthenticated, loadAll]);
 
   useEffect(() => {
     setHiveForm((prev) => ({ ...prev, pasiekaId: String(apiaryId) }));

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import "./Auth.css";
 import { beeApi } from "../api/beeApi";
 import { useAppContext } from "../context/AppContext";
+import { trackEvent } from "../analytics";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function LoginPage() {
         password: data.password,
       });
       setSession(response.data);
+      trackEvent("login", { method: "email" });
       navigate("/");
     } catch (requestError) {
       setLoginError(
