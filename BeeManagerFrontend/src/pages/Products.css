@@ -20,6 +20,10 @@
   line-height: 1.6;
 }
 
+.cart-error {
+  margin-top: 18px;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

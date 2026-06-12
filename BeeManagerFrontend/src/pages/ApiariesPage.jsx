@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { beeApi } from "../api/beeApi";
 import { useAppContext } from "../context/AppContext";
@@ -14,7 +14,7 @@ const emptyApiary = {
 
 function ApiariesPage() {
   const navigate = useNavigate();
-  const { currentUser, hasRole, isAuthenticated, authLoading } = useAppContext();
+  const { hasRole, isAuthenticated, authLoading } = useAppContext();
   const [apiaries, setApiaries] = useState([]);
   const [discoveries, setDiscoveries] = useState([]);
   const [query, setQuery] = useState("");
@@ -240,29 +240,7 @@ function ApiariesPage() {
       <Navbar />
 
       <div className="backend-shell">
-        <section className="backend-hero">
-          <h2>Pasieki i dostęp do backendu</h2>
-          <p>
-            To jest właściwy moduł aplikacji BeeManager. Tutaj widać pasieki,
-            można zakładać nowe, wysyłać prośby o dołączenie i przechodzić do
-            szczegółów pasieki, gdzie są ule, miodobrania, przeglądy i
-            członkostwa.
-          </p>
-          {currentUser?.fullName && (
-            <p style={{ marginTop: 12, fontWeight: 700 }}>
-              Zalogowano jako {currentUser.fullName}
-            </p>
-          )}
-
-          <div className="backend-toolbar">
-            <Link to="/" className="backend-ghost">
-              Dashboard
-            </Link>
-            <Link to="/panel-admina" className="backend-ghost">
-              Panel admina
-            </Link>
-          </div>
-        </section>
+       
 
         {authLoading ? (
           <div className="backend-section" style={{ marginTop: 18 }}>
@@ -272,7 +250,7 @@ function ApiariesPage() {
           <div className="backend-section" style={{ marginTop: 18 }}>
             <h3>Wymagane logowanie</h3>
             <p className="backend-muted">
-              Zaloguj się, aby zobaczyć pasieki i korzystać z funkcji backendu.
+              Zaloguj się, aby zobaczyć pasieki i korzystać z funkcji.
             </p>
           </div>
         ) : (

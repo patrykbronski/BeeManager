@@ -506,11 +506,6 @@ function ApiaryDetailsPage() {
       <div className="backend-shell">
         <section className="backend-hero">
           <h2>{apiary?.nazwa || "Szczegóły pasieki"}</h2>
-          <p>
-            Tutaj zarządzasz jednym konkretnym obiektem: pasieką, ulami,
-            miodobraniami, przeglądami oraz członkostwem. Poniżej są wszystkie
-            pola dostępne w backendzie.
-          </p>
 
           <div className="backend-toolbar">
             <Link to="/pasieki" className="backend-ghost">
@@ -560,9 +555,6 @@ function ApiaryDetailsPage() {
               <div className="backend-section-header">
                 <div>
                   <h3>Pasieka</h3>
-                  <p className="backend-muted">
-                    Pola zgodne z backendem: nazwa, lokalizacja i opis.
-                  </p>
                 </div>
                 <div className="backend-actions">
                   {canManageApiary && (
@@ -630,10 +622,6 @@ function ApiaryDetailsPage() {
               <div className="backend-section-header">
                 <div>
                   <h3>Członkowie</h3>
-                  <p className="backend-muted">
-                    Backend obsługuje zgłoszenia, bezpośrednie dodawanie oraz
-                    akceptację/odrzucenie.
-                  </p>
                 </div>
               </div>
 

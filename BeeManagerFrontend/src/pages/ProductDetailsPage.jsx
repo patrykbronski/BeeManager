@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Products.css";
 import { useAppContext } from "../context/AppContext";
+import { useState } from "react";
 
 const products = [
   {
@@ -26,7 +27,8 @@ const products = [
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const { addToCart } = useAppContext();
+  const { addToCart, isAuthenticated } = useAppContext();
+  const [cartMessage, setCartMessage] = useState("");
 
   const product = products.find((item) => item.id === Number(id));
 
@@ -58,13 +60,19 @@ function ProductDetailsPage() {
               <button
                 type="button"
                 className="product-link secondary-btn"
-                onClick={() =>
-                  addToCart({
+                onClick={async () => {
+                  if (!isAuthenticated) {
+                    setCartMessage("Musisz się zalogować, żeby dodać produkt do koszyka.");
+                    return;
+                  }
+
+                  setCartMessage("");
+                  await addToCart({
                     id: product.id,
                     name: product.name,
                     price: product.price,
-                  })
-                }
+                  });
+                }}
               >
                 Dodaj do koszyka
               </button>
@@ -75,6 +83,8 @@ function ProductDetailsPage() {
               <p>Brak produktu o ID: {id}</p>
             </div>
           )}
+
+          {cartMessage && <p className="form-error cart-error">{cartMessage}</p>}
 
           <div className="products-actions">
             <Link to="/produkty" className="product-link">

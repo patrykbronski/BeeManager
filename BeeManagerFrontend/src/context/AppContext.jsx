@@ -5,188 +5,11 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useReducer,
 } from "react";
 import { beeApi, setAuthToken } from "../api/beeApi";
 
 const AppContext = createContext(undefined);
-
-export function AppProvider({ children }) {
-  const [authLoading, setAuthLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState(() =>
-    localStorage.getItem("bee_access_token")
-  );
-  const [refreshToken, setRefreshToken] = useState(() =>
-    localStorage.getItem("bee_refresh_token")
-  );
-  const [currentUser, setCurrentUser] = useState(() => {
-    const raw = localStorage.getItem("bee_current_user");
-    return raw ? JSON.parse(raw) : null;
-  });
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
-
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem("cartItems");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.body.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
-
-  useEffect(() => {
-    setAuthToken(accessToken);
-    if (accessToken) {
-      localStorage.setItem("bee_access_token", accessToken);
-    } else {
-      localStorage.removeItem("bee_access_token");
-    }
-  }, [accessToken]);
-
-  useEffect(() => {
-    if (refreshToken) {
-      localStorage.setItem("bee_refresh_token", refreshToken);
-    } else {
-      localStorage.removeItem("bee_refresh_token");
-    }
-  }, [refreshToken]);
-
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("bee_current_user", JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem("bee_current_user");
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    let alive = true;
-
-    async function loadCurrentUser() {
-      if (!accessToken) {
-        if (alive) {
-          setAuthLoading(false);
-        }
-        return;
-      }
-
-      try {
-        const response = await beeApi.get("/auth/me");
-        if (alive) {
-          setCurrentUser(response.data);
-        }
-      } catch {
-        if (alive) {
-          setAccessToken(null);
-          setRefreshToken(null);
-          setCurrentUser(null);
-        }
-      } finally {
-        if (alive) {
-          setAuthLoading(false);
-        }
-      }
-    }
-
-    loadCurrentUser();
-
-    return () => {
-      alive = false;
-    };
-  }, [accessToken]);
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
-
-  const addToCart = (product) => {
-    setCartItems((prev) => [...prev, product]);
-  };
-
-  const removeFromCart = (id) => {
-    setCartItems((prev) => {
-      const index = prev.findIndex((item) => item.id === id);
-      if (index === -1) return prev;
-
-      const updated = [...prev];
-      updated.splice(index, 1);
-      return updated;
-    });
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
-  };
-
-  const setSession = ({ accessToken: nextAccessToken, refreshToken: nextRefreshToken, user }) => {
-    setAccessToken(nextAccessToken || null);
-    setRefreshToken(nextRefreshToken || null);
-    setCurrentUser(user || null);
-    if (nextAccessToken) {
-      setAuthToken(nextAccessToken);
-    }
-  };
-
-  const logout = () => {
-    setAccessToken(null);
-    setRefreshToken(null);
-    setCurrentUser(null);
-    setAuthToken(null);
-  };
-
-  const isAuthenticated = Boolean(accessToken && currentUser);
-  const isAdmin = currentUser?.roles?.includes("Admin") || false;
-
-  const hasRole = useCallback(
-    (role) => currentUser?.roles?.includes(role) || false,
-    [currentUser]
-  );
-
-  const value = useMemo(
-    () => ({
-      authLoading,
-      accessToken,
-      refreshToken,
-      currentUser,
-      isAuthenticated,
-      isAdmin,
-      hasRole,
-      setSession,
-      logout,
-      darkMode,
-      toggleDarkMode,
-      cartItems,
-      addToCart,
-      removeFromCart,
-      clearCart,
-    }),
-    [
-      authLoading,
-      accessToken,
-      refreshToken,
-      currentUser,
-      isAuthenticated,
-      isAdmin,
-      hasRole,
-      darkMode,
-      cartItems,
-    ]
-  );
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-}
 
 export function useAppContext() {
   const context = useContext(AppContext);
@@ -197,3 +20,218 @@ export function useAppContext() {
 
   return context;
 }
+
+const initialState = {
+  authLoading: true,
+  accessToken: null,
+  currentUser: null,
+  darkMode: false,
+  cartItems: [],
+};
+
+function appReducer(state, action) {
+  switch (action.type) {
+    case "SET_AUTH_LOADING":
+      return { ...state, authLoading: action.payload };
+    case "SET_SESSION":
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        currentUser: action.payload.user,
+      };
+    case "SET_CART_ITEMS":
+      return {
+        ...state,
+        cartItems: action.payload,
+      };
+    case "CLEAR_AUTH":
+      return {
+        ...state,
+        accessToken: null,
+        currentUser: null,
+        cartItems: [],
+      };
+    case "TOGGLE_DARK_MODE":
+      return { ...state, darkMode: !state.darkMode };
+    case "ADD_TO_CART":
+      return { ...state, cartItems: [...state.cartItems, action.payload] };
+    case "REMOVE_FROM_CART": {
+      const index = state.cartItems.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (index === -1) {
+        return state;
+      }
+
+      const updated = [...state.cartItems];
+      updated.splice(index, 1);
+      return { ...state, cartItems: updated };
+    }
+    case "CLEAR_CART":
+      return { ...state, cartItems: [] };
+    default:
+      return state;
+  }
+}
+
+export function AppProvider({ children }) {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", state.darkMode);
+  }, [state.darkMode]);
+
+  useEffect(() => {
+    setAuthToken(state.accessToken);
+  }, [state.accessToken]);
+
+  useEffect(() => {
+    let alive = true;
+
+    async function bootstrapAuth() {
+      try {
+        const response = await beeApi.post("/auth/refresh", {});
+        if (!alive) {
+          return;
+        }
+
+        dispatch({
+          type: "SET_SESSION",
+          payload: {
+            accessToken: response.data.accessToken,
+            user: response.data.user,
+          },
+        });
+        setAuthToken(response.data.accessToken);
+      } catch {
+        if (alive) {
+          dispatch({ type: "CLEAR_AUTH" });
+          setAuthToken(null);
+        }
+      } finally {
+        if (alive) {
+          dispatch({ type: "SET_AUTH_LOADING", payload: false });
+        }
+      }
+    }
+
+    bootstrapAuth();
+
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let alive = true;
+
+    async function loadCart() {
+      if (!state.accessToken) {
+        dispatch({ type: "SET_CART_ITEMS", payload: [] });
+        return;
+      }
+
+      try {
+        const response = await beeApi.get("/cart");
+        if (alive) {
+          dispatch({ type: "SET_CART_ITEMS", payload: response.data });
+        }
+      } catch {
+        if (alive) {
+          dispatch({ type: "SET_CART_ITEMS", payload: [] });
+        }
+      }
+    }
+
+    if (!state.authLoading) {
+      loadCart();
+    }
+
+    return () => {
+      alive = false;
+    };
+  }, [state.accessToken, state.authLoading]);
+
+  const toggleDarkMode = () => {
+    dispatch({ type: "TOGGLE_DARK_MODE" });
+  };
+
+  const addToCart = async (product) => {
+    await beeApi.post("/cart/items", product);
+    dispatch({ type: "ADD_TO_CART", payload: product });
+  };
+
+  const removeFromCart = async (id) => {
+    await beeApi.delete(`/cart/items/${id}`);
+    dispatch({ type: "REMOVE_FROM_CART", payload: id });
+  };
+
+  const clearCart = async () => {
+    await beeApi.delete("/cart/clear");
+    dispatch({ type: "CLEAR_CART" });
+  };
+
+  const setSession = ({ accessToken, user }) => {
+    dispatch({
+      type: "SET_SESSION",
+      payload: {
+        accessToken: accessToken || null,
+        user: user || null,
+      },
+    });
+    setAuthToken(accessToken || null);
+  };
+
+  const logout = useCallback(async () => {
+    try {
+      await beeApi.post("/auth/logout", {});
+    } catch {
+      // Ignore backend logout failures and clear the client state anyway.
+    } finally {
+      dispatch({ type: "CLEAR_AUTH" });
+      setAuthToken(null);
+    }
+  }, []);
+
+  const isAuthenticated = Boolean(state.accessToken && state.currentUser);
+  const isAdmin = state.currentUser?.roles?.includes("Admin") || false;
+
+  const hasRole = useCallback(
+    (role) => state.currentUser?.roles?.includes(role) || false,
+    [state.currentUser]
+  );
+
+  const value = useMemo(
+    () => ({
+      authLoading: state.authLoading,
+      accessToken: state.accessToken,
+      currentUser: state.currentUser,
+      isAuthenticated,
+      isAdmin,
+      hasRole,
+      setSession,
+      logout,
+      darkMode: state.darkMode,
+      toggleDarkMode,
+      cartItems: state.cartItems,
+      addToCart,
+      removeFromCart,
+      clearCart,
+    }),
+    [
+      state.authLoading,
+      state.accessToken,
+      state.currentUser,
+      isAuthenticated,
+      isAdmin,
+      hasRole,
+      logout,
+      state.darkMode,
+      state.cartItems,
+    ]
+  );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+}
+
+

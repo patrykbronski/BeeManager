@@ -35,8 +35,7 @@ public class LoginRequest
 
 public class RefreshRequest
 {
-    [Required]
-    public string RefreshToken { get; set; } = string.Empty;
+    public string? RefreshToken { get; set; }
 }
 
 public class AuthResponse

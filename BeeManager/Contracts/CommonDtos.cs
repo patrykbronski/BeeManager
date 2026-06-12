@@ -63,3 +63,17 @@ public class MembershipDto
 
     public DateTime RequestedAtUtc { get; set; }
 }
+
+public class CartItemDto
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+
+    public string Price { get; set; } = string.Empty;
+}
+
+public class UpdateCartRequest
+{
+    public IReadOnlyCollection<CartItemDto> Items { get; set; } = Array.Empty<CartItemDto>();
+}

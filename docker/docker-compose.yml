@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: beemanager-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "BeeManager!12345"
+    ports:
+      - "1433:1433"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend.Dockerfile
+    container_name: beemanager-backend
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Server=db,1433;Database=BeeManager;User Id=sa;Password=BeeManager!12345;TrustServerCertificate=True;MultipleActiveResultSets=true
+      Jwt__Issuer: BeeManager
+      Jwt__Audience: BeeManagerFrontend
+      Jwt__Key: BeeManager-super-secret-jwt-key-2026-change-me-please
+      Jwt__AccessTokenMinutes: 30
+      Jwt__RefreshTokenDays: 14
+    ports:
+      - "7233:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend.Dockerfile
+    container_name: beemanager-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    restart: unless-stopped

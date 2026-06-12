@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import "./Products.css";
 import { useAppContext } from "../context/AppContext";
 import { trackEvent } from "../analytics";
+import { useState } from "react";
 
 const products = [
   { id: 1, name: "Miód wielokwiatowy", price: "35 zł" },
@@ -11,7 +12,8 @@ const products = [
 ];
 
 function ProductsPage() {
-  const { addToCart, cartItems } = useAppContext();
+  const { addToCart, cartItems, isAuthenticated } = useAppContext();
+  const [cartMessage, setCartMessage] = useState("");
 
   return (
     <>
@@ -21,8 +23,8 @@ function ProductsPage() {
         <div className="products-container">
           <h2>Lista produktów</h2>
           <p className="products-info">
-            To jest osobny widok routingu. URL powinien być:
-            <strong> /produkty</strong>
+            
+           
           </p>
 
           <p className="products-info">
@@ -43,9 +45,18 @@ function ProductsPage() {
                   <button
                     type="button"
                     className="product-link secondary-btn"
-                    onClick={() => {
-                      addToCart(product);
-                      trackEvent("add_to_cart", { item_name: product.name, value: product.price });
+                    onClick={async () => {
+                      if (!isAuthenticated) {
+                        setCartMessage("Musisz się zalogować, żeby dodać produkt do koszyka.");
+                        return;
+                      }
+
+                      setCartMessage("");
+                      await addToCart(product);
+                      trackEvent("add_to_cart", {
+                        item_name: product.name,
+                        value: product.price,
+                      });
                     }}
                   >
                     Dodaj do koszyka
@@ -55,9 +66,11 @@ function ProductsPage() {
             ))}
           </div>
 
+          {cartMessage && <p className="form-error cart-error">{cartMessage}</p>}
+
           <div className="products-actions">
             <Link to="/" className="product-back">
-              ← Wróć do strony głównej
+               Wróć do strony głównej
             </Link>
           </div>
         </div>

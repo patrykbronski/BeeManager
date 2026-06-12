@@ -240,10 +240,6 @@ function AdminPage() {
       <div className="backend-shell">
         <section className="backend-hero">
           <h2>Panel administratora</h2>
-          <p>
-            Tutaj są wszystkie procesy administracyjne backendu: przegląd
-            rejestracji, użytkowników oraz zgłoszeń do pasiek.
-          </p>
         </section>
 
         {loading ? (
@@ -381,9 +377,6 @@ function AdminPage() {
               <div className="backend-section-header">
                 <div>
                   <h3>Użytkownicy</h3>
-                  <p className="backend-muted">
-                    Zmiana roli aktualizuje też status konta po stronie backendu.
-                  </p>
                 </div>
               </div>
 
@@ -453,9 +446,6 @@ function AdminPage() {
               <div className="backend-section-header">
                 <div>
                   <h3>Zgłoszenia do pasiek</h3>
-                  <p className="backend-muted">
-                    Zgłoszenia z backendu można zatwierdzać albo odrzucać.
-                  </p>
                 </div>
               </div>
 

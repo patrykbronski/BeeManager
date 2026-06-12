@@ -6,26 +6,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace BeeManager.Controllers;
 
 [Route("api/auth")]
 public class AuthController : ApiControllerBase
 {
+    private const string RefreshTokenCookieName = "bee_refresh_token";
+
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ApplicationDbContext _dbContext;
     private readonly ITokenService _tokenService;
+    private readonly IHostEnvironment _environment;
     private readonly ILogger<AuthController> _logger;
 
     public AuthController(
         UserManager<ApplicationUser> userManager,
         ApplicationDbContext dbContext,
         ITokenService tokenService,
+        IHostEnvironment environment,
         ILogger<AuthController> logger)
     {
         _userManager = userManager;
         _dbContext = dbContext;
         _tokenService = tokenService;
+        _environment = environment;
         _logger = logger;
     }
 
@@ -59,7 +65,7 @@ public class AuthController : ApiControllerBase
             });
         }
 
-        _logger.LogInformation("Nowa rejestracja użytkownika {Email} z rolą {Role}", user.Email, user.RequestedRole);
+        _logger.LogInformation("Nowa rejestracja uzytkownika {Email} z rola {Role}", user.Email, user.RequestedRole);
 
         return Ok(new ApiResponse
         {
@@ -104,28 +110,44 @@ public class AuthController : ApiControllerBase
                 new ApiResponse { Message = "Konto nie ma przypisanej roli. Skontaktuj się z administratorem." });
         }
 
-        _logger.LogInformation("Udane logowanie użytkownika {Email}", user.Email);
-        return Ok(await _tokenService.IssueTokensAsync(user));
+        _logger.LogInformation("Udane logowanie uzytkownika {Email}", user.Email);
+        var response = await _tokenService.IssueTokensAsync(user);
+        SetRefreshTokenCookie(response.RefreshToken, response.RefreshTokenExpiresAtUtc);
+        return Ok(ToClientAuthResponse(response));
     }
 
     [AllowAnonymous]
     [HttpPost("refresh")]
     public async Task<ActionResult<AuthResponse>> Refresh(RefreshRequest request)
     {
-        var response = await _tokenService.RefreshAsync(request.RefreshToken);
+        var refreshToken = GetRefreshToken(request);
+        if (string.IsNullOrWhiteSpace(refreshToken))
+        {
+            return Unauthorized(new ApiResponse { Message = "Brak refresh tokena." });
+        }
+
+        var response = await _tokenService.RefreshAsync(refreshToken);
         if (response is null)
         {
+            ClearRefreshTokenCookie();
             return Unauthorized(new ApiResponse { Message = "Refresh token jest nieprawidłowy lub wygasł." });
         }
 
-        return Ok(response);
+        SetRefreshTokenCookie(response.RefreshToken, response.RefreshTokenExpiresAtUtc);
+        return Ok(ToClientAuthResponse(response));
     }
 
     [AllowAnonymous]
     [HttpPost("logout")]
     public async Task<ActionResult<ApiResponse>> Logout(RefreshRequest request)
     {
-        await _tokenService.RevokeAsync(request.RefreshToken);
+        var refreshToken = GetRefreshToken(request);
+        if (!string.IsNullOrWhiteSpace(refreshToken))
+        {
+            await _tokenService.RevokeAsync(refreshToken);
+        }
+
+        ClearRefreshTokenCookie();
         return Ok(new ApiResponse { Message = "Wylogowano pomyślnie." });
     }
 
@@ -134,6 +156,7 @@ public class AuthController : ApiControllerBase
     public async Task<ActionResult<ApiResponse>> LogoutAll()
     {
         await _tokenService.RevokeAllForUserAsync(CurrentUserId);
+        ClearRefreshTokenCookie();
         return Ok(new ApiResponse { Message = "Wylogowano ze wszystkich urządzeń." });
     }
 
@@ -156,6 +179,48 @@ public class AuthController : ApiControllerBase
             AccountStatus = user.AccountStatus,
             RequestedRole = user.RequestedRole,
             Roles = roles.ToList()
+        });
+    }
+
+    private static AuthResponse ToClientAuthResponse(AuthResponse response) =>
+        new()
+        {
+            AccessToken = response.AccessToken,
+            AccessTokenExpiresAtUtc = response.AccessTokenExpiresAtUtc,
+            User = response.User
+        };
+
+    private string? GetRefreshToken(RefreshRequest request)
+    {
+        if (!string.IsNullOrWhiteSpace(request.RefreshToken))
+        {
+            return request.RefreshToken.Trim();
+        }
+
+        return Request.Cookies.TryGetValue(RefreshTokenCookieName, out var cookieValue)
+            ? cookieValue
+            : null;
+    }
+
+    private void SetRefreshTokenCookie(string refreshToken, DateTime expiresAtUtc)
+    {
+        Response.Cookies.Append(RefreshTokenCookieName, refreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = !_environment.IsDevelopment(),
+            SameSite = _environment.IsDevelopment() ? SameSiteMode.Lax : SameSiteMode.None,
+            Expires = expiresAtUtc,
+            Path = "/"
+        });
+    }
+
+    private void ClearRefreshTokenCookie()
+    {
+        Response.Cookies.Delete(RefreshTokenCookieName, new CookieOptions
+        {
+            Secure = !_environment.IsDevelopment(),
+            SameSite = _environment.IsDevelopment() ? SameSiteMode.Lax : SameSiteMode.None,
+            Path = "/"
         });
     }
 }
